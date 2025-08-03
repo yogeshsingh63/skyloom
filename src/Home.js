@@ -3,17 +3,16 @@ import './Home.css';
 import Search from './components/Search';
 import { Weather } from './components/Weather';
 import axios from "axios";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Home() {
-  const [getDefault, setGetDefault] = useState(true)
   const [data, setData] = useState();
+  
   const searchWeather = async (location) => {
-    setGetDefault(false)
-    let url = "https://community-open-weather-map.p.rapidapi.com/weather";
+    let url = "https://open-weather13.p.rapidapi.com/weather";
     const options = {
       params: {
-        q: location,
+        query: location,
         lang: "null",
         units: "imperial",
       },
@@ -34,10 +33,10 @@ function Home() {
   };
   
   // Fetch Default Data
-  if(getDefault)
-  {
-    searchWeather("Accra")
-  }
+  useEffect(() => {
+    searchWeather("Accra");
+  }, []);
+
   return (
 
     <div className="w-screen h-screen bg-gray-600 items-center flex justify-center">
